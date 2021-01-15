@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# R files
+*.Rhistory
+.Rproj.user
+*.Rbuildignore
+
+# Mac files
+*.DS_Store
