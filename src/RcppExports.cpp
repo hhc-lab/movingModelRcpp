@@ -5,20 +5,6 @@
 
 using namespace Rcpp;
 
-// calculateSijMatrix
-NumericMatrix calculateSijMatrix(NumericVector Fi, NumericMatrix Pij, NumericVector lambda_sig, CharacterVector region_IDs);
-RcppExport SEXP _movingModelRcpp_calculateSijMatrix(SEXP FiSEXP, SEXP PijSEXP, SEXP lambda_sigSEXP, SEXP region_IDsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type Fi(FiSEXP);
-    Rcpp::traits::input_parameter< NumericMatrix >::type Pij(PijSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type lambda_sig(lambda_sigSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type region_IDs(region_IDsSEXP);
-    rcpp_result_gen = Rcpp::wrap(calculateSijMatrix(Fi, Pij, lambda_sig, region_IDs));
-    return rcpp_result_gen;
-END_RCPP
-}
 // delta_SEIR_cpp
 NumericVector delta_SEIR_cpp(NumericVector event);
 RcppExport SEXP _movingModelRcpp_delta_SEIR_cpp(SEXP eventSEXP) {
@@ -63,41 +49,11 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// getMijMatrix
-NumericMatrix getMijMatrix(NumericVector Fi, NumericMatrix Sij, NumericMatrix Pij, NumericVector Ni, NumericVector lambda_sig, CharacterVector region_IDs);
-RcppExport SEXP _movingModelRcpp_getMijMatrix(SEXP FiSEXP, SEXP SijSEXP, SEXP PijSEXP, SEXP NiSEXP, SEXP lambda_sigSEXP, SEXP region_IDsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type Fi(FiSEXP);
-    Rcpp::traits::input_parameter< NumericMatrix >::type Sij(SijSEXP);
-    Rcpp::traits::input_parameter< NumericMatrix >::type Pij(PijSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type Ni(NiSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type lambda_sig(lambda_sigSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type region_IDs(region_IDsSEXP);
-    rcpp_result_gen = Rcpp::wrap(getMijMatrix(Fi, Sij, Pij, Ni, lambda_sig, region_IDs));
-    return rcpp_result_gen;
-END_RCPP
-}
-// sigmoid
-double sigmoid(double x);
-RcppExport SEXP _movingModelRcpp_sigmoid(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    rcpp_result_gen = Rcpp::wrap(sigmoid(x));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_movingModelRcpp_calculateSijMatrix", (DL_FUNC) &_movingModelRcpp_calculateSijMatrix, 4},
     {"_movingModelRcpp_delta_SEIR_cpp", (DL_FUNC) &_movingModelRcpp_delta_SEIR_cpp, 1},
     {"_movingModelRcpp_event_rate_coloc_cpp", (DL_FUNC) &_movingModelRcpp_event_rate_coloc_cpp, 6},
     {"_movingModelRcpp_event_rate_move_cpp", (DL_FUNC) &_movingModelRcpp_event_rate_move_cpp, 7},
-    {"_movingModelRcpp_getMijMatrix", (DL_FUNC) &_movingModelRcpp_getMijMatrix, 6},
-    {"_movingModelRcpp_sigmoid", (DL_FUNC) &_movingModelRcpp_sigmoid, 1},
     {NULL, NULL, 0}
 };
 
