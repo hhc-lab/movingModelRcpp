@@ -60,7 +60,7 @@ fitMoveMatrix = function(Mij_real, region_IDs, population, lambda_sig_ini = 10,
   Sij = calculateSijMatrix(Fi, Pij, lambda_sig, region_IDs)
   
   ## Get the movement matrix
-  Mij_simu = getMijMatrix(Fi, Sij, Pij, population, lambda_sig, region_IDs)
+  Mij_simu = getMijMatrix(Fi, Pij, population, lambda_sig, region_IDs)
   Mij_simu_prop = t( apply(Mij_simu, MARGIN = 1, function(x) x / sum(x)) )
   Mij_real_prop = t( apply(Mij_real, MARGIN = 1, function(x) x / sum(x)) )
   
@@ -83,7 +83,7 @@ fitMoveMatrix = function(Mij_real, region_IDs, population, lambda_sig_ini = 10,
     
     ## Recalculate Sij and Mij matrix
     Sij = calculateSijMatrix(Fi, Pij, lambda_sig, region_IDs)
-    Mij_simu = getMijMatrix(Fi, Sij, Pij, population, lambda_sig, region_IDs)
+    Mij_simu = getMijMatrix(Fi, Pij, population, lambda_sig, region_IDs)
     Mij_simu_prop = t( apply(Mij_simu, MARGIN = 1, function(x) x / sum(x)) )
     
     # rms_now = (sum((as.vector(Mij_simu_prop) - apply(Mij_real_prop, MARGIN = 1, function(x) x))^2) / length(1))^0.5

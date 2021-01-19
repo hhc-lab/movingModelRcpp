@@ -2,9 +2,8 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-NumericMatrix getMijMatrix(NumericVector Fi, NumericMatrix Sij, NumericMatrix Pij, 
-                              NumericVector Ni, NumericVector lambda_sig, 
-                              CharacterVector region_IDs) {
+NumericMatrix getMijMatrix(NumericVector Fi, NumericMatrix Pij, NumericVector Ni, 
+                           NumericVector lambda_sig, CharacterVector region_IDs) {
   int numpatch = Fi.length();
   NumericMatrix Mij_simu(numpatch, numpatch);
   

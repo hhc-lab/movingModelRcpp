@@ -64,8 +64,23 @@ BEGIN_RCPP
 END_RCPP
 }
 // getMijMatrix
-NumericMatrix getMijMatrix(NumericVector Fi, NumericMatrix Sij, NumericMatrix Pij, NumericVector Ni, NumericVector lambda_sig, CharacterVector region_IDs);
-RcppExport SEXP _movingModelRcpp_getMijMatrix(SEXP FiSEXP, SEXP SijSEXP, SEXP PijSEXP, SEXP NiSEXP, SEXP lambda_sigSEXP, SEXP region_IDsSEXP) {
+NumericMatrix getMijMatrix(NumericVector Fi, NumericMatrix Pij, NumericVector Ni, NumericVector lambda_sig, CharacterVector region_IDs);
+RcppExport SEXP _movingModelRcpp_getMijMatrix(SEXP FiSEXP, SEXP PijSEXP, SEXP NiSEXP, SEXP lambda_sigSEXP, SEXP region_IDsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type Fi(FiSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type Pij(PijSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type Ni(NiSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type lambda_sig(lambda_sigSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type region_IDs(region_IDsSEXP);
+    rcpp_result_gen = Rcpp::wrap(getMijMatrix(Fi, Pij, Ni, lambda_sig, region_IDs));
+    return rcpp_result_gen;
+END_RCPP
+}
+// gradientDescentStepCpp
+Rcpp::List gradientDescentStepCpp(NumericVector Fi, NumericMatrix Sij, NumericMatrix Pij, NumericVector Ni, NumericMatrix Mij_simu, NumericMatrix Mij_real, NumericVector lambda_sig, CharacterVector region_IDs, double alpha_F, double alpha_lambda_sig);
+RcppExport SEXP _movingModelRcpp_gradientDescentStepCpp(SEXP FiSEXP, SEXP SijSEXP, SEXP PijSEXP, SEXP NiSEXP, SEXP Mij_simuSEXP, SEXP Mij_realSEXP, SEXP lambda_sigSEXP, SEXP region_IDsSEXP, SEXP alpha_FSEXP, SEXP alpha_lambda_sigSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -73,9 +88,13 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericMatrix >::type Sij(SijSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type Pij(PijSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type Ni(NiSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type Mij_simu(Mij_simuSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type Mij_real(Mij_realSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type lambda_sig(lambda_sigSEXP);
     Rcpp::traits::input_parameter< CharacterVector >::type region_IDs(region_IDsSEXP);
-    rcpp_result_gen = Rcpp::wrap(getMijMatrix(Fi, Sij, Pij, Ni, lambda_sig, region_IDs));
+    Rcpp::traits::input_parameter< double >::type alpha_F(alpha_FSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha_lambda_sig(alpha_lambda_sigSEXP);
+    rcpp_result_gen = Rcpp::wrap(gradientDescentStepCpp(Fi, Sij, Pij, Ni, Mij_simu, Mij_real, lambda_sig, region_IDs, alpha_F, alpha_lambda_sig));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -96,7 +115,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_movingModelRcpp_delta_SEIR_cpp", (DL_FUNC) &_movingModelRcpp_delta_SEIR_cpp, 1},
     {"_movingModelRcpp_event_rate_coloc_cpp", (DL_FUNC) &_movingModelRcpp_event_rate_coloc_cpp, 6},
     {"_movingModelRcpp_event_rate_move_cpp", (DL_FUNC) &_movingModelRcpp_event_rate_move_cpp, 7},
-    {"_movingModelRcpp_getMijMatrix", (DL_FUNC) &_movingModelRcpp_getMijMatrix, 6},
+    {"_movingModelRcpp_getMijMatrix", (DL_FUNC) &_movingModelRcpp_getMijMatrix, 5},
+    {"_movingModelRcpp_gradientDescentStepCpp", (DL_FUNC) &_movingModelRcpp_gradientDescentStepCpp, 10},
     {"_movingModelRcpp_sigmoid", (DL_FUNC) &_movingModelRcpp_sigmoid, 1},
     {NULL, NULL, 0}
 };
