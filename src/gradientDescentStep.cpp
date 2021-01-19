@@ -25,6 +25,7 @@ Rcpp::List gradientDescentStep(NumericVector Fi, NumericMatrix Sij, NumericMatri
     }
     
     Fi_next[i] = Fi[i] - ( alpha_F * J_Fi[i] / pow(Ni[i], 2) );
+    if(Fi_next[i] <= 0) Fi_next[i] = Fi[i];
     lambda_sig_next[i] = lambda_sig[i] - ( alpha_lambda_sig * J_lambda_sig[i] / pow(Ni[i], 2) );
   }
   
