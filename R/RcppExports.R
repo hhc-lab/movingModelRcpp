@@ -44,8 +44,8 @@ getMijMatrix <- function(Fi, Pij, Ni, lambda_sig, region_IDs) {
     .Call(`_movingModelRcpp_getMijMatrix`, Fi, Pij, Ni, lambda_sig, region_IDs)
 }
 
-gradientDescentStepCpp <- function(Fi, Sij, Pij, Ni, Mij_simu, Mij_real, lambda_sig, region_IDs, alpha_F, alpha_lambda_sig) {
-    .Call(`_movingModelRcpp_gradientDescentStepCpp`, Fi, Sij, Pij, Ni, Mij_simu, Mij_real, lambda_sig, region_IDs, alpha_F, alpha_lambda_sig)
+gradientDescentStep <- function(Fi, Sij, Pij, Ni, Mij_simu, Mij_real, lambda_sig, region_IDs, alpha_F, alpha_lambda_sig) {
+    .Call(`_movingModelRcpp_gradientDescentStep`, Fi, Sij, Pij, Ni, Mij_simu, Mij_real, lambda_sig, region_IDs, alpha_F, alpha_lambda_sig)
 }
 
 sigmoid <- function(x) {

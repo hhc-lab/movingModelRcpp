@@ -70,14 +70,20 @@ A list that contains three components: \itemize{
 A SEIR simulation tool using residence or contact model.
 }
 \details{
-test detail
+This tool mainly use two models: residence model and contact model. The data input of the former model is a matrix that 
+contains the directional movement of residents in each residental regions. The data matrix of contact model contains the 
+value of contact possibilities between any two residents from their residental regions.
 }
 \examples{
 location_list = c("loc1", "loc2", "loc3", "loc4", "loc5")
-loc_N = seq(1000, 9000, 2000)
+loc_N = c(5382, 6609, 7193, 4572, 7760)
+movMat = t(matrix(c(4445, 32, 411, 132, 362, 
+                    223, 5441, 541, 117, 287, 
+                    443, 729, 4969, 650, 402, 
+                    201, 387, 346, 3456, 182, 
+                    398, 421, 1282, 571, 5088), ncol = 5))
 iniLoc = "loc3"
-Rmatrix = matrix(sample(x = 10000, size = 25), ncol = 5)
-Rmatrix = apply(Rmatrix, MARGIN = 1, function(x) x/sum(x))
+Rmatrix = fitMoveMatrix(movMat, location_list, loc_N, alpha_F = 1000)[["Sij"]]
 result = simulateSEIR(Rmatrix, locationList = location_list, populationList = loc_N, initialLoc = iniLoc, 
                       model = "residence", Di = 3, De = 3.5, R0_ref = 2.4, threads = 4)
 }

@@ -49,21 +49,21 @@ A list that contains four components: \itemize{
 }
 }
 \description{
-A tool that uses movement data to find a local optimum residents moving matrix via gradient descent method.
+A tool that uses movement data to find a local optimum resident-moving matrix via gradient descent method.
 }
 \details{
-test detail
+This function will try to find the resident-moving matrix by fitting local optimal solution of the Fi or/and lambda_sig 
+via gradient descent method.
 }
 \examples{
 location_list = c("loc1", "loc2", "loc3", "loc4", "loc5")
-loc_N = seq(1000, 9000, 2000)
-iniLoc = "loc3"
-movMat = t(matrix(c(990, 3, 4, 1, 2, 
-                    23, 2911, 41, 17, 8, 
-                    44, 102, 4201, 650, 3, 
-                    2, 387, 1446, 4683, 482, 
-                    79, 521, 482, 901, 7017), ncol = 5))
-result = fitMoveMatrix(movMat, location_list, loc_N, alpha_F = 0.1)
+loc_N = c(5382, 6609, 7193, 4572, 7760)
+movMat = t(matrix(c(4445, 32, 411, 132, 362, 
+                    223, 5441, 541, 117, 287, 
+                    443, 729, 4969, 650, 402, 
+                    201, 387, 346, 3456, 182, 
+                    398, 421, 1282, 571, 5088), ncol = 5))
+result = fitMoveMatrix(movMat, location_list, loc_N, alpha_F = 1000)
 }
 \keyword{descent}
 \keyword{gradient}
