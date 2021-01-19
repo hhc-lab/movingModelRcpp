@@ -152,7 +152,7 @@ simulateSEIR = function(dataMatrix, locationList, populationList, initialLoc, mo
   names(I1) = locationList
   I1[initialLoc] = initial.I
   
-  SEIR_matrix = foreach (sim = 1:as.integer(nsim), .combine = "rbind", .packages = c("deSolve", "movingModelRcpp")) %dopar% {
+  SEIR_matrix = foreach (sim = 1:as.integer(nsim), .combine = "rbind", .packages = "movingModelRcpp") %dopar% {
     if(model == "residence"){
       Rmatrix_temp = Rmatrix
       R0_vec_temp = R0_vec
