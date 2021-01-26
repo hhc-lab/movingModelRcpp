@@ -44,15 +44,21 @@ fitMoveMatrix = function(Mij_real, region_IDs, population, lambda_sig_ini = 10,
   
   rownames(Mij_real) = colnames(Mij_real) = names(population) = region_IDs
   
-  if(!all(rowSums(Mij_real) == population))
-    stop("The sums of each row in movement matrix must match the population vector.")
+  # if(!all(rowSums(Mij_real) == population))
+  #   stop("The sums of each row in movement matrix must match the population vector.")
+  
+  if(any(is.na(Mij_real)) | any(Mij_real < 0))
+    stop("Mij_real can only contain positive numbers or zeros.")
+  if(any(is.na(population)) | any(population <= 0))
+    stop("population can only contain positive numbers.")
   
   ## lambda_sigmoid
   lambda_sig = rep(lambda_sig_ini, length(region_IDs))
   names(lambda_sig) = region_IDs
   
   ## The vector that contains the probability of a resident leaves his/her residence region.
-  Fi = apply(Mij_real, MARGIN = 1, function(x) (1 - max(x)/sum(x)))
+  Fi = apply(Mij_real, MARGIN = 1, function(x) (1 - max(x)/sum(x, na.rm = TRUE)))
+  Fi[is.na(Fi)] = 0
   names(Fi) = region_IDs
   
   ## The matrix that contains the probability of each region a resident will go when he leaves his/her residence region.
@@ -80,7 +86,9 @@ fitMoveMatrix = function(Mij_real, region_IDs, population, lambda_sig_ini = 10,
     listTemp = gradientDescentStep(Fi, Sij, Pij, population, Mij_simu_prop, Mij_real_prop, lambda_sig, 
                                    region_IDs, alpha_F = alpha_F, alpha_lambda_sig = alpha_lambda_sig)
     if(fit_fi) Fi = listTemp$Fi
+    Fi[is.na(Fi)] = 0
     if(fit_lambda) lambda_sig = listTemp$lambda_sig
+    lambda_sig[is.na(lambda_sig)] = 0
     remove(listTemp)
     
     ## Recalculate Sij and Mij matrix
@@ -89,7 +97,7 @@ fitMoveMatrix = function(Mij_real, region_IDs, population, lambda_sig_ini = 10,
     Mij_simu_prop = t( apply(Mij_simu, MARGIN = 1, function(x) x / sum(x)) )
     
     # rms_now = (sum((as.vector(Mij_simu_prop) - apply(Mij_real_prop, MARGIN = 1, function(x) x))^2) / length(1))^0.5
-    rms_now = ( sum((Mij_simu_prop - Mij_real_prop)^2) / length(Mij_real_prop) )^0.5
+    rms_now = ( sum((Mij_simu_prop - Mij_real_prop)^2, na.rm = TRUE) / length(Mij_real_prop) )^0.5
     
     if(runCounter == 1) message("Iteration ", runCounter, " RMS: ", rms_now)
     # drawHeatMap(Mij_simu_prop, Mij_real_prop, lambda_sig_ini, runCounter)
